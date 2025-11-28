@@ -1,6 +1,10 @@
 const CACHE = 'todo-cache-v1';
-const ASSETS = ['/', '/index.html', '/todo.css', '/todo.js']; // moslab o'zgartiring
-self.addEventListener('install', e=> e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS))));
-self.addEventListener('fetch', e=> e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));
+const ASSETS = ['/', '/index.html']; // agar alohida CSS/JS bo'lsa qo'shing
 
+self.addEventListener('install', e =>
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)))
+);
 
+self.addEventListener('fetch', e =>
+  e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)))
+);

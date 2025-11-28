@@ -4,6 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Tabiatni Asraylik 🌳</title>
+
+  <!-- PWA manifest -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#06b6d4">
+
   <style>
     :root{
       --bg:#0a1a2e;
@@ -33,10 +38,7 @@
       box-shadow:0 20px 50px rgba(0,0,0,0.5);
       border:1px solid rgba(34,197,94,0.2);
     }
-    header{
-      text-align:center;
-      margin-bottom:20px;
-    }
+    header{text-align:center;margin-bottom:20px;}
     h1{
       font-size:26px;
       background:linear-gradient(90deg,#22c55e,#34d399);
@@ -57,46 +59,14 @@
       border-radius:12px;
       border:1px solid rgba(34,197,94,0.3);
     }
-    .stat big{
-      display:block;
-      font-size:28px;
-      font-weight:800;
-      color:var(--accent);
-    }
-    .stat small{color:var(--muted);font-size:13px}
-    
-    .actions{
-      display:flex;
-      flex-direction:column;
-      gap:14px;
-      margin:20px 0;
-    }
-    .btn{
-      padding:14px;
-      border:none;
-      border-radius:12px;
-      font-weight:600;
-      font-size:16px;
-      cursor:pointer;
-      transition:0.2s;
-    }
-    .btn-primary{
-      background:linear-gradient(90deg,var(--accent),var(--accent2));
-      color:white;
-    }
-    .btn-secondary{
-      background:rgba(255,255,255,0.08);
-      color:var(--muted);
-      border:1px solid rgba(255,255,255,0.1);
-    }
+    .stat big{display:block;font-size:28px;font-weight:800;color:var(--accent);}
+    .stat small{color:var(--muted);font-size:13px;}
+    .actions{display:flex;flex-direction:column;gap:14px;margin:20px 0;}
+    .btn{padding:14px;border:none;border-radius:12px;font-weight:600;font-size:16px;cursor:pointer;transition:0.2s;}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:white;}
+    .btn-secondary{background:rgba(255,255,255,0.08);color:var(--muted);border:1px solid rgba(255,255,255,0.1);}
     .btn:hover{transform:translateY(-2px);box-shadow:0 10px 20px rgba(34,197,94,0.3);}
-
-    .feed{
-      max-height:300px;
-      overflow-y:auto;
-      margin:20px 0;
-      padding-right:8px;
-    }
+    .feed{max-height:300px;overflow-y:auto;margin:20px 0;padding-right:8px;}
     .feed-item{
       background:rgba(255,255,255,0.05);
       padding:12px;
@@ -105,30 +75,12 @@
       border-left:4px solid var(--accent);
       font-size:14px;
     }
-    .feed-item small{
-      color:var(--muted);
-      display:block;
-      margin-top:4px;
-    }
-
+    .feed-item small{color:var(--muted);display:block;margin-top:4px;}
     textarea{
-      width:100%;
-      min-height:80px;
-      padding:12px;
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,0.1);
-      background:rgba(255,255,255,0.05);
-      color:inherit;
-      resize:vertical;
-      font-family:inherit;
+      width:100%;min-height:80px;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);
+      background:rgba(255,255,255,0.05);color:inherit;resize:vertical;font-family:inherit;
     }
-
-    footer{
-      margin-top:20px;
-      text-align:center;
-      font-size:13px;
-      color:var(--muted);
-    }
+    footer{margin-top:20px;text-align:center;font-size:13px;color:var(--muted);}
   </style>
 </head>
 <body>
@@ -139,34 +91,19 @@
     </header>
 
     <div class="stats">
-      <div class="stat">
-        <big id="trees">0</big>
-        <small>Ekilgan daraxtlar</small>
-      </div>
-      <div class="stat">
-        <big id="points">0</big>
-        <small>Umumiy ball</small>
-      </div>
-      <div class="stat">
-        <big id="streak">0</big>
-        <small>Kunlik seriya</small>
-      </div>
+      <div class="stat"><big id="trees">0</big><small>Ekilgan daraxtlar</small></div>
+      <div class="stat"><big id="points">0</big><small>Umumiy ball</small></div>
+      <div class="stat"><big id="streak">0</big><small>Kunlik seriya</small></div>
     </div>
 
     <div class="actions">
-      <button class="btn btn-primary" id="plantBtn">
-        🌳 Bugun daraxt ekdim (+50 ball)
-      </button>
-      <button class="btn btn-primary" id="checkinBtn">
-        ✅ Kunlik kirish (+20 ball)
-      </button>
+      <button class="btn btn-primary" id="plantBtn">🌳 Bugun daraxt ekdim (+50 ball)</button>
+      <button class="btn btn-primary" id="checkinBtn">✅ Kunlik kirish (+20 ball)</button>
     </div>
 
     <div style="margin:20px 0">
-      <textarea id="message" placeholder="Tabiat haqida fikringiz yoki rasxodingizni yozing..."></textarea>
-      <button class="btn btn-secondary" id="postBtn" style="margin-top:8px;width:100%">
-        ✉️ Xabar qoldirish
-      </button>
+      <textarea id="message" placeholder="Tabiat haqida fikringizni yozing..."></textarea>
+      <button class="btn btn-secondary" id="postBtn" style="margin-top:8px;width:100%">✉️ Xabar qoldirish</button>
     </div>
 
     <div class="feed" id="feed"></div>
@@ -178,46 +115,27 @@
       <button class="btn btn-secondary" id="clearAll">🗑 Tozalash</button>
     </div>
 
-    <footer>
-      Ma’lumotlar sizning brauzeringizda saqlanadi • localStorage
-    </footer>
+    <footer>Ma’lumotlar sizning brauzeringizda saqlanadi • localStorage</footer>
   </div>
 
   <script>
     const STORAGE = 'nature_app_v1';
-    let data = {
-      trees: 0,
- handin: 0,
-      points: 0,
-      streak: 0,
-      lastCheckin: null,
-      lastPlant: null,
-      messages: []
-    };
+    let data = { trees:0, points:0, streak:0, lastCheckin:null, lastPlant:null, messages:[] };
 
-    // yuklash
     const saved = localStorage.getItem(STORAGE);
     if(saved) data = {...data, ...JSON.parse(saved)};
 
-    // bugun sana
-    function today(){ 
-      const d = new Date();
-      return d.toISOString().slice(0,10);
-    }
+    function today(){ return new Date().toISOString().slice(0,10); }
 
-    // saqlash
     function save(){
       localStorage.setItem(STORAGE, JSON.stringify(data));
       render();
     }
 
-    // render
     function render(){
       document.getElementById('trees').textContent = data.trees;
       document.getElementById('points').textContent = data.points;
       document.getElementById('streak').textContent = data.streak;
-
-      // feed
       const feed = document.getElementById('feed');
       feed.innerHTML = '';
       data.messages.slice().reverse().forEach(m => {
@@ -228,83 +146,61 @@
       });
     }
 
-    // daraxt ekish
     document.getElementById('plantBtn').onclick = () => {
-      if(data.lastPlant === today()){
-        alert('Bugun allaqachon daraxt ekdingiz! Ertaga yana keling 🌳');
-        return;
-      }
-      data.trees++;
-      data.points += 50;
-      data.lastPlant = today();
-      data.messages.push({text: '🌱 Yangi daraxt ekdim!', date: new Date()});
-      if(data.lastCheckin === today()) data.streak++;
-      save();
-      alert('Tabriklaymiz! +50 ball va 1 daraxt qo‘shildi 🌳');
+      if(data.lastPlant === today()){ alert('Bugun allaqachon daraxt ekdingiz!'); return; }
+      data.trees++; data.points+=50; data.lastPlant=today();
+      data.messages.push({text:'🌱 Yangi daraxt ekdim!', date:new Date()});
+      if(data.lastCheckin===today()) data.streak++;
+      save(); alert('Tabriklaymiz! +50 ball va 1 daraxt qo‘shildi 🌳');
     };
 
-    // kunlik kirish
     document.getElementById('checkinBtn').onclick = () => {
-      if(data.lastCheckin === today()){
-        alert('Bugun allaqachon kirib bonus oldingiz!');
-        return;
-      }
-      data.points += 20;
-      data.lastCheckin = today();
-      data.streak++;
-      data.messages.push({text: '✅ Kunlik kirish bonusi oldim!', date: new Date()});
-      save();
-      alert('Kunlik bonus: +20 ball 🎉');
+      if(data.lastCheckin===today()){ alert('Bugun allaqachon kirib bonus oldingiz!'); return; }
+      data.points+=20; data.lastCheckin=today(); data.streak++;
+      data.messages.push({text:'✅ Kunlik kirish bonusi oldim!', date:new Date()});
+      save(); alert('Kunlik bonus: +20 ball 🎉');
     };
 
-    // xabar qoldirish
     document.getElementById('postBtn').onclick = () => {
       const txt = document.getElementById('message').value.trim();
       if(!txt) return alert('Xabar yozing');
-      data.messages.push({text, date: new Date()});
-      document.getElementById('message').value = '';
+      data.messages.push({text:txt, date:new Date()});
+      document.getElementById('message').value='';
       save();
     };
 
-    // eksport
     document.getElementById('exportBtn').onclick = () => {
-      const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+      const blob = new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
       const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url; a.download = 'tabiatni-asraylik.json';
-      a.click();
+      const a = document.createElement('a'); a.href=url; a.download='tabiatni-asraylik.json'; a.click();
       URL.revokeObjectURL(url);
     };
 
-    // import
-    document.getElementById('importBtn').onclick = () => document.getElementById('importFile').click();
-    document.getElementById('importFile').onchange = e => {
-      const file = e.target.files[0];
-      if(!file) return;
-      const r = new FileReader();
-      r.onload = () => {
-        try{
-          const imported = JSON.parse(r.result);
-          data = {...data, ...imported};
-          save();
-          alert('Ma’lumotlar muvaffaqiyatli yuklandi!');
-        }catch(err){
-          alert('Fayl noto‘g‘ri: ' + err.message);
-        }
+    document.getElementById('importBtn').onclick = ()=>document.getElementById('importFile').click();
+    document.getElementById('importFile').onchange = e=>{
+      const file=e.target.files[0]; if(!file) return;
+      const r=new FileReader();
+      r.onload=()=>{
+        try{ const imported=JSON.parse(r.result); data={...data,...imported}; save(); alert('Ma’lumotlar yuklandi!'); }
+        catch(err){ alert('Fayl noto‘g‘ri: '+err.message); }
       };
       r.readAsText(file);
     };
 
-    // tozalash
-    document.getElementById('clearAll').onclick = () => {
-      if(confirm('Hamma ma’lumotlar o‘chib ketadi. Davom etasizmi?')){
-        localStorage.removeItem(STORAGE);
-        location.reload();
+    document.getElementById('clearAll').onclick=()=>{
+      if(confirm('Hamma ma’lumotlar o‘chadi. Davom etasizmi?')){
+        localStorage.removeItem(STORAGE); location.reload();
       }
     };
 
-    // boshida ko‘rsatish
     render();
+
+    // PWA service worker registratsiyasi
+    if('serviceWorker' in navigator){
+      navigator.serviceWorker.register('/service-worker.js')
+      .then(()=>console.log('Service Worker registered'))
+      .catch(err=>console.log('SW registration failed:',err));
+    }
   </script>
 </body>
 </html>
